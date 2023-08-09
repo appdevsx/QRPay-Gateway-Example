@@ -91,7 +91,8 @@
                     <form class="p-5 border border-1 rounded-3 bg-white shadow-lg" method="POST" action="{{ route('pay.initiate.payment') }}">
                         @csrf
                         <div class="img-wrapper overflow-hidden text-center mb-3">
-                            <img style="max-width: 180px; height: auto; object-fit: cover;" src="{{ asset('public/qrpay/logo.png') }}" alt="img">
+                           <h5>{{ __("QRPay Payment Gateway Integrated.") }}</h5>
+                           <h6>{{ __("Any Website Example Checkout Page.") }}</h6>
                         </div>
                         <div class="mb-4">
                             <label for="amount" class="form-label">{{ __("Pay Amount") }} <span class="text-danger">*</span></label>
