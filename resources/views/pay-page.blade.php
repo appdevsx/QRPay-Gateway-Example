@@ -28,10 +28,10 @@
                             <img style="max-width: 180px; height: auto; object-fit: cover;" src="{{ asset('public/qrpay/logo.png') }}" alt="img">
                         </div>
                         <div class="mb-4">
-                            <label for="amount" class="form-label">{{ __("Pay amount") }}</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="enter amount...">
+                            <label for="amount" class="form-label">{{ __("Pay Amount") }} <span class="text-danger">*</span></label>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter Amount...">
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">{{ __("Submit") }}</button>
+                        <button type="submit" class="btn btn-primary w-100">{{ __("Pay") }}</button>
                     </form>
                 </div>
             </div>
