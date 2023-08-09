@@ -1,37 +1,95 @@
-<link rel="stylesheet" href="{{ asset('public/qrpay/css/iziToast.min.css') }}">
-<script src="{{ asset('public/qrpay/js/iziToast.min.js') }}"></script>
-@if(session()->has('notify'))
-    @foreach(session('notify') as $msg)
-        <script>
-            "use strict";
-            iziToast.{{ $msg[0] }}({message:"{{ __($msg[1]) }}", position: "topRight"});
-        </script>
-    @endforeach
-@endif
+<!-- notify js -->
+<script src='{{ asset('public/qrpay/js/bootstrap-notify.min.js') }}'></script>
 
-@if ($errors->any())
-    @php
-        $collection = collect($errors->all());
-        $errors = $collection->unique();
-    @endphp
-
-    <script>
-        "use strict";
-        @foreach ($errors as $error)
-        iziToast.error({
-            message: '{{ __($error) }}',
-            position: "topRight"
-        });
-        @endforeach
-    </script>
-
-@endif
 <script>
-    "use strict";
-    function notify(status,message) {
-        iziToast[status]({
-            message: message,
-            position: "topRight"
+    // Show Laravel Error Messages----------------------------------------------
+    $(function () {
+        $(document).ready(function(){
+            @if (session('error'))
+                @if (is_array(session('error')))
+                    @foreach (session('error') as $item)
+                        $.notify(
+                            {
+                                title: "",
+                                message: "{{ __($item) }}",
+                                icon: 'las la-exclamation-triangle',
+                            },
+                            {
+                                type: "danger",
+                                allow_dismiss: true,
+                                delay: 5000,
+                                placement: {
+                                from: "top",
+                                align: "right"
+                                },
+                            }
+                        );
+                    @endforeach
+                @endif
+            @elseif (session('success'))
+                @if (is_array(session('success')))
+                    @foreach (session('success') as $item)
+                        $.notify(
+                            {
+                                title: "",
+                                message: "{{ __($item) }}",
+                                icon: 'las la-check-circle',
+                            },
+                            {
+                                type: "success",
+                                allow_dismiss: true,
+                                delay: 5000,
+                                placement: {
+                                from: "top",
+                                align: "right"
+                                },
+                            }
+                        );
+                    @endforeach
+                @endif
+            @elseif (session('warning'))
+                @if (is_array(session('warning')))
+                    @foreach (session('warning') as $item)
+                        $.notify(
+                            {
+                                title: "",
+                                message: "{{ __($item) }}",
+                                icon: 'las la-exclamation-triangle',
+                            },
+                            {
+                                type: "warning",
+                                allow_dismiss: true,
+                                delay: 500000000,
+                                placement: {
+                                from: "top",
+                                align: "right"
+                                },
+                            }
+                        );
+                    @endforeach
+                @endif
+            @elseif ($errors->any())
+                @foreach ($errors->all() as $item)
+                    $.notify(
+                        {
+                            title: "",
+                            message: "{{ __($item) }}",
+                            icon: 'las la-exclamation-triangle',
+                        },
+                        {
+                            type: "danger",
+                            allow_dismiss: true,
+                            delay: 5000,
+                            placement: {
+                            from: "top",
+                            align: "right"
+                            },
+                        }
+                    );
+                @endforeach
+            @endif
         });
-    }
+    });
+
+
 </script>

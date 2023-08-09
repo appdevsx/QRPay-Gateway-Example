@@ -13,16 +13,71 @@
     <!-- bootstrap css link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Hide the spinner arrows */
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+            -webkit-appearance: none;
+            margin: 0;
         }
         input[type="number"] {
-          -moz-appearance: textfield; /* Firefox */
+            -moz-appearance: textfield;
         }
-      </style>
+        .alert {
+        font-size: 15px;
+        letter-spacing: 0.3px;
+        padding: 20px 24px;
+        }
+        [data-notify=icon] {
+        color: #fff;
+        margin-right: 5px;
+        }
+        .alert.alert-success {
+        background: #39DA8A !important;
+        color: #FFF !important;
+        -webkit-box-shadow: 0 3px 8px 0 rgba(57, 218, 138, 0.4);
+            box-shadow: 0 3px 8px 0 rgba(57, 218, 138, 0.4);
+        border: none;
+        }
+        .alert.alert-danger {
+        background: #EA5455!important;
+        color: #FFF!important;
+        box-shadow: 0 3px 8px 0 rgba(234, 84, 85,0.4);
+        border: none;
+        }
+        .alert.alert-warning {
+        background: #FF9F43!important;
+        color: #FFF!important;
+        box-shadow: 0 3px 8px 0 rgba(255, 159, 67,0.4);
+        border: none;
+        }
+
+        .alert--custom{
+        color: #664d03;
+        background-color: #fff3cd;
+        border-color: #ffecb5;
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        }
+        .alert strong {
+        display: block;
+        }
+        .alert span {
+        line-height: 1em;
+        }
+        .alert .close {
+        position: absolute;
+        background-color: transparent;
+        color: #FFF;
+        opacity: 1;
+        top: -4px;
+        text-shadow: none;
+        border: none;
+        font-weight: 400;
+        font-size: 24px;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,6 +109,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 <!-- bootstrap js -->
+<!-- jquery -->
+<script src="{{ asset('public/qrpay/') }}/js/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 @include('partials.notify')
 
