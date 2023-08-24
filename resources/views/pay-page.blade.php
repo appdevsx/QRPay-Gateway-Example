@@ -12,72 +12,9 @@
     <link rel="shortcut icon" href="{{ asset('public/qrpay/fav.png') }}" type="image/x-icon">
     <!-- bootstrap css link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-        .alert {
-        font-size: 15px;
-        letter-spacing: 0.3px;
-        padding: 20px 24px;
-        }
-        [data-notify=icon] {
-        color: #fff;
-        margin-right: 5px;
-        }
-        .alert.alert-success {
-        background: #39DA8A !important;
-        color: #FFF !important;
-        -webkit-box-shadow: 0 3px 8px 0 rgba(57, 218, 138, 0.4);
-            box-shadow: 0 3px 8px 0 rgba(57, 218, 138, 0.4);
-        border: none;
-        }
-        .alert.alert-danger {
-        background: #EA5455!important;
-        color: #FFF!important;
-        box-shadow: 0 3px 8px 0 rgba(234, 84, 85,0.4);
-        border: none;
-        }
-        .alert.alert-warning {
-        background: #FF9F43!important;
-        color: #FFF!important;
-        box-shadow: 0 3px 8px 0 rgba(255, 159, 67,0.4);
-        border: none;
-        }
+    <link rel="stylesheet" href="{{ asset('public/qrpay/css/style.css') }}">
 
-        .alert--custom{
-        color: #664d03;
-        background-color: #fff3cd;
-        border-color: #ffecb5;
-        position: relative;
-        padding: 1rem 1rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-        }
-        .alert strong {
-        display: block;
-        }
-        .alert span {
-        line-height: 1em;
-        }
-        .alert .close {
-        position: absolute;
-        background-color: transparent;
-        color: #FFF;
-        opacity: 1;
-        top: -4px;
-        text-shadow: none;
-        border: none;
-        font-weight: 400;
-        font-size: 24px;
-        }
-    </style>
+
 </head>
 <body class="bg-light">
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,18 +24,21 @@
     <div class="container">
         <div class="form-wrapper h- d-flex flex-column justify-content-center vh-100">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <form class="p-5 border border-1 rounded-3 bg-white shadow-lg" method="POST" action="{{ route('pay.initiate.payment') }}">
+                <div class="col-lg-5">
+                    <form class="demo-payment-form" method="POST" action="{{ route('pay.initiate.payment') }}">
                         @csrf
-                        <div class="img-wrapper overflow-hidden text-center mb-3">
-                           <h5>{{ __("QRPay Payment Gateway Integrated.") }}</h5>
-                           <h6>{{ __("Any Website Example Checkout Page.") }}</h6>
+                        <div class="title-area mb-20">
+                           <h3>{{ __("QRPAY Merchant Website") }}</h3>
                         </div>
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label for="amount" class="form-label">{{ __("Pay Amount") }} <span class="text-danger">*</span></label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter Amount...">
+                            <input type="number" id="amount" name="amount" class="form--control" placeholder="Enter Amount...">
+                            <small class="form-text">{{ __("Any Website Example Checkout Page.") }}</small>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">{{ __("Pay") }}</button>
+                        <button type="submit" class="btn--base w-100">{{ __("Pay Now") }} <i class="las la-arrow-right"></i></button>
+                        <div class="badge-area mt-20 text-center">
+                            <span class="form-text powered-badge"><i class="fas fa-bolt"></i> {{ __("Powered by QRPay") }}</span>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -109,6 +49,19 @@
     End pay page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+
+<ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
 <!-- bootstrap js -->
 <!-- jquery -->
 <script src="{{ asset('public/qrpay/') }}/js/jquery-3.5.1.min.js"></script>

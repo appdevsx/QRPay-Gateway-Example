@@ -13,7 +13,7 @@ class PaymentGatewayController extends Controller
     public function getToken(){
        try{
         $client = new Client();
-        $response = $client->request('POST', 'https://mehedi.appdevs.net/qrpay-v2.0.0/pay/sandbox/api/v1/authentication/token', [
+        $response = $client->request('POST', 'https://envato.appdevs.net/qrpay/pay/sandbox/api/v1/authentication/token', [
             'json' => [
                 'client_id' => "tRCDXCuztQzRYThPwlh1KXAYm4bG3rwWjbxM2R63kTefrGD2B9jNn6JnarDf7ycxdzfnaroxcyr5cnduY6AqpulRSebwHwRmGerA",
                 'secret_id' =>   "oZouVmqHCbyg6ad7iMnrwq3d8wy9Kr4bo6VpQnsX6zAOoEs4oxHPjttpun36JhGxDl7AUMz3ShUqVyPmxh4oPk3TQmDF7YvHN5M3",
@@ -62,8 +62,9 @@ class PaymentGatewayController extends Controller
             $access_token =   $access_token_info->token??'';
         }
 
-        try{$client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'https://mehedi.appdevs.net/qrpay-v2.0.0/pay/sandbox/api/v1/payment/create', [
+        try{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://envato.appdevs.net/qrpay/pay/sandbox/api/v1/payment/create', [
                 'json' => [
                         'amount' =>     $validated['amount'],
                         'currency' =>   "USD",
