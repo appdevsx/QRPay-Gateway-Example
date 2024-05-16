@@ -6,45 +6,37 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class PaymentGatewayController extends Controller
 {
     //get token
     public function getToken(){
-       try{
-        $client = new Client();
-        $response = $client->request('POST', 'https://envato.appdevs.net/qrpay/pay/sandbox/api/v1/authentication/token', [
-            'json' => [
-                'client_id' => "tRCDXCuztQzRYThPwlh1KXAYm4bG3rwWjbxM2R63kTefrGD2B9jNn6JnarDf7ycxdzfnaroxcyr5cnduY6AqpulRSebwHwRmGerA",
-                'secret_id' =>   "oZouVmqHCbyg6ad7iMnrwq3d8wy9Kr4bo6VpQnsX6zAOoEs4oxHPjttpun36JhGxDl7AUMz3ShUqVyPmxh4oPk3TQmDF7YvHN5M3",
-            ],
-            'headers' => [
-                'accept' => 'application/json',
-                'content-type' => 'application/json',
-            ],
+        $base_url = "https://qrpay.appdevs.net/pay/sandbox/api/v1";
+        $response = Http::post($base_url .'/authentication/token', [
+            'client_id' => "tRCDXCuztQzRYThPwlh1KXAYm4bG3rwWjbxM2R63kTefrGD2B9jNn6JnarDf7ycxdzfnaroxcyr5cnduY6AqpulRSebwHwRmGerA",
+            'secret_id' =>   "oZouVmqHCbyg6ad7iMnrwq3d8wy9Kr4bo6VpQnsX6zAOoEs4oxHPjttpun36JhGxDl7AUMz3ShUqVyPmxh4oPk3TQmDF7YvHN5M3",
         ]);
-        $result = json_decode($response->getBody(),true);
-        $data = [
-            'code' => $result['message']['code'],
-            'message' =>  $result['type'],
-            'token' => $result['data']['access_token']??"",
+        $statusCode = $response->getStatusCode();
+        $result = json_decode($response->getBody()->getContents(),true);
 
-        ];
-        return (object)$data;
-       }catch(Exception $e){
-        $errorMessage = $e->getMessage();
-        $errorArray = [];
-        if (preg_match('/{.*}/', $errorMessage, $matches)) {
-            $errorArray = json_decode($matches[0], true);
+        if ($statusCode != 200) {
+            $data = [
+                'code' => $errorArray['message']['code']??400,
+                'message' => "Access token capture failed",
+                'token' => '',
+            ];
+        }else{
+            $data = [
+                'code' => $result['message']['code']??200,
+                'message' =>  $result['type'],
+                'token' => $result['data']['access_token']??"",
+
+            ];
+
         }
-        $data = [
-            'code' => $errorArray['message']['code'],
-            'message' => $errorArray['message']['error'],
-            'token' => '',
-
-        ];
         return (object)$data;
-       }
+
     }
     //payment initiate
     public function initiatePayment(Request $request){
@@ -57,14 +49,14 @@ class PaymentGatewayController extends Controller
         $validated =$validator->validate();
         $access_token_info = $this->getToken();
         if($access_token_info->code != 200){
-            return back()->with(['error' => [$access_token_info->message[0]]]);
+            return back()->with(['error' => [$access_token_info->message]]);
         }else{
             $access_token =   $access_token_info->token??'';
         }
 
         try{
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'https://envato.appdevs.net/qrpay/pay/sandbox/api/v1/payment/create', [
+            $response = $client->request('POST', 'https://qrpay.appdevs.net/pay/sandbox/api/v1/payment/create', [
                 'json' => [
                         'amount' =>     $validated['amount'],
                         'currency' =>   "USD",

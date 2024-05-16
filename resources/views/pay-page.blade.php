@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="{{ asset('public/qrpay/fav.png') }}" type="image/x-icon">
     <!-- bootstrap css link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('public/qrpay/css/style.css') }}">
 
 
@@ -35,9 +36,9 @@
                             <input type="number" id="amount" name="amount" class="form--control" placeholder="Enter Amount...">
                             <small class="form-text">{{ __("Any Website Example Checkout Page.") }}</small>
                         </div>
-                        <button type="submit" class="btn--base w-100">{{ __("Pay Now") }} <i class="las la-arrow-right"></i></button>
+                        <button type="submit" class="btn--base w-100">{{ __("Pay Now") }}</button>
                         <div class="badge-area mt-20 text-center">
-                            <span class="form-text powered-badge"><i class="fas fa-bolt"></i> {{ __("Powered by QRPay") }}</span>
+                            <span class="form-text powered-badge"> {{ __("Powered by QRPay") }}</span>
                         </div>
                     </form>
                 </div>
